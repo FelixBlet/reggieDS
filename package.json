@@ -1,0 +1,22 @@
+{
+  "name": "reggie",
+  "version": "1.0.0",
+  "description": "r34 bot for discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "coolcat",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.9.0",
+    "htmlparser2": "^8.0.2",
+    "rule34": "^1.0.0",
+    "xml": "^1.0.1",
+    "xml2js": "^0.5.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.38.0"
+  }
+}
