@@ -25,24 +25,13 @@ module.exports = {
 		xhr.responseType = 'json';
 		let url = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=1&json=1&tags=${tag}&id=${rand}`;
 		console.log(url);
-		xhr.open('GET', url, false);
-		xhr.send();
+		console.log(fetch(url))
 		try {
 			// debug output
-			console.log(xhr.open('HEAD', `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=1&json=1&tags=${tag}&id=${rand}`, false));
-			// below is message code
-			if (xhr.status != 200) {
-				console.log(`Ошибка ${xhr.status}: ${xhr.statusText}`);
-			}
-			else {
-				xhr.onload = function() {
-					parseString(xhr.response, function(err, result) {
-						console.log(result);
-						console.log(result.file_url);
-						interaction.reply(result.file_url);
-					});
-				};
-			}
+			let response = await fetch(url);
+			let art = await response.json();
+			console.log(art[0]);
+			interaction.reply(art[0].file_url);
 		}
 		catch (err) {
 			console.log(`Запрос не удался. Ошибка XHR: ${xhr.status}, выданный результат: ${xhr.response}`);
