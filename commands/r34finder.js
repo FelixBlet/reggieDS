@@ -71,6 +71,10 @@ module.exports = {
 					}
 					else if (click.customId === 'previous') {
 						num = num - 1;
+						if (num == 0){
+							num = 1;
+							await interaction.followUp('There is no more arts! Keep scrolling forward, not backwards! >:C');
+						}
 						url = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=${num}&json=1&tags=${tag}`;
 						response = await fetch(url);
 						art = await response.json();
