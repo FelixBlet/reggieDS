@@ -3,7 +3,6 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const xhr = new XMLHttpRequest();
 const parseString = require('xml2js').parseString;
 
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setNSFW(true)
@@ -18,28 +17,35 @@ module.exports = {
 				.setDescription('Tags u want to use')
 				.setRequired(true)),
 	async execute(interaction) {
-		const tag = interaction.options.getString('tag');
+		let tag = interaction.options.getString('tag');
+		console.log(tag);
 		let rand = 1 + Math.random() * 999;
+		rand = Math.round(rand);
+		console.log(rand);
 		xhr.responseType = 'json';
-		xhr.open('GET', `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=1&tags=${tag}&id=${rand}`, false);
+		let url = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=1&json=1&tags=${tag}&id=${rand}`;
+		console.log(url);
+		xhr.open('GET', url, false);
+		xhr.send();
 		try {
-			xhr.send();
+			// debug output
+			console.log(xhr.open('HEAD', `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=1&json=1&tags=${tag}&id=${rand}`, false));
+			// below is message code
 			if (xhr.status != 200) {
 				console.log(`Ошибка ${xhr.status}: ${xhr.statusText}`);
 			}
 			else {
 				xhr.onload = function() {
 					parseString(xhr.response, function(err, result) {
-						interaction.reply(result);
+						console.log(result);
+						console.log(result.file_url);
+						interaction.reply(result.file_url);
 					});
-					let responseObj = xhr.response;
-					console.log(responseObj.sample_url);
-					interaction.reply(responseObj.sample_url);
 				};
 			}
 		}
 		catch (err) {
-			console.log('Запрос не удался.');
+			console.log(`Запрос не удался. Ошибка XHR: ${xhr.status}, выданный результат: ${xhr.response}`);
 			interaction.reply('Error ocured! :C');
 		}
 	},
