@@ -1,8 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { vktoken, user_id } = require('./config.json')
+const { vktoken } = require('./config.json')
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const xhr = new XMLHttpRequest();
-const parseString = require('xml2js').parseString;
 
 module.exports = {
 	data: new SlashCommandBuilder()

@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const xhr = new XMLHttpRequest();
-const parseString = require('xml2js').parseString;
 
 module.exports = {
 	data: new SlashCommandBuilder()

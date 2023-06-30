@@ -56,7 +56,6 @@ module.exports = {
 				content: art[0].file_url,
 				components: [row],
 			});
-			
 			while (true) {
 				const collectorFilter = i => i.user.id === interaction.user.id;
 				try {
