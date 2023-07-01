@@ -28,10 +28,13 @@ module.exports = {
 				}),
 		),
 	async execute(interaction) {
+		// читаем тег и ID
 		let tag = interaction.options.getString('tag');
 		console.log(tag);
 		let num = interaction.options.getInteger('id') ?? 1;
+		// fetch по стандарту принимает text, так что ставим json
 		xhr.responseType = 'json';
+		// задаём первый запрос для r34 api
 		let url = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=${num}&json=1&tags=${tag}`;
 		console.log(url);
 		console.log(fetch(url));
@@ -45,6 +48,7 @@ module.exports = {
 			.setCustomId('previous')
 			.setEmoji('⬅')
 			.setStyle(ButtonStyle.Primary);
+		// создание массива из кнопок, для дальнейшего использования в сообщении (так надо)
 		const row = new ActionRowBuilder()
 			.addComponents(previous, next);
 		try {
@@ -71,9 +75,9 @@ module.exports = {
 					}
 					else if (click.customId === 'previous') {
 						num = num - 1;
-						if (num == 0){
+						if (num == 0) {
 							num = 1;
-							await interaction.followUp('There is no more arts! Keep scrolling forward, not backwards! >:C');
+							await interaction.followUp({ content: 'There is no more arts! Keep scrolling forward, not backwards! >:C', ephemeral: true});
 						}
 						url = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=1&pid=${num}&json=1&tags=${tag}`;
 						response = await fetch(url);
@@ -90,7 +94,7 @@ module.exports = {
 		}
 		catch (err) {
 			console.log(`Запрос не удался. Ошибка XHR: ${xhr.status}, выданный результат: ${xhr.response}`);
-			interaction.reply('Error ocured! :C');
+			interaction.reply('Error ocured! :C Error:' + err);
 		}
 	},
 };
