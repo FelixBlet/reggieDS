@@ -93,8 +93,10 @@ module.exports = {
 			}
 		}
 		catch (err) {
-			console.log(`Запрос не удался. Ошибка XHR: ${xhr.status}, выданный результат: ${xhr.response}`);
-			interaction.reply('Error ocured! :C Error:' + err);
+			if (err.code !== 'InteractionAlreadyReplied') {
+				console.log(`Запрос не удался. Ошибка XHR: ${xhr.status}, выданный результат: ${xhr.response}`);
+				interaction.reply('Error occurred! :C Error:' + err);
+			}
 		}
 	},
 };
