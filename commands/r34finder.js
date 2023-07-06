@@ -29,7 +29,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 		// читаем тег и ID
-		let tag = interaction.options.getString('tag');
+		const tag = interaction.options.getString('tag');
 		console.log(tag);
 		let num = interaction.options.getInteger('id') ?? 1;
 		// fetch по стандарту принимает text, так что ставим json

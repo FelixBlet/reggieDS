@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { vktoken } = require('./config.json')
+const { vktoken } = require('../config.json')
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const xhr = new XMLHttpRequest();
 
